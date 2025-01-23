@@ -1,0 +1,25 @@
+{
+  "title": "Azure Administrator Practice",
+  "categories": [
+    "Compute",
+    "Storage",
+    "Networking",
+    "Security",
+    "Monitoring"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "category": "Compute",
+      "question": "Quelle est la meilleure option pour déployer une application web avec mise à l'échelle automatique?",
+      "options": [
+        "Azure Container Instances",
+        "Azure App Service",
+        "Azure Functions",
+        "Azure Virtual Machines"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Azure App Service offre une mise à l'échelle automatique intégrée et est optimisé pour les applications web."
+    }
+  ]
+}

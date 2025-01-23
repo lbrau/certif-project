@@ -1,0 +1,32 @@
+{
+  "certifications": [
+    {
+      "id": "aws-sa",
+      "title": "AWS Solutions Architect",
+      "description": "Préparation à la certification AWS Solutions Architect Associate",
+      "icon": "☁️",
+      "questionsFile": "aws-questions.json"
+    },
+    {
+      "id": "node",
+      "title": "Node.js",
+      "description": "Préparation à la certification Node.js Application Developer",
+      "icon": "🟩",
+      "questionsFile": "node-questions.json"
+    },
+    {
+      "id": "ml",
+      "title": "Machine Learning",
+      "description": "Préparation à la certification AWS Machine Learning Specialty",
+      "icon": "🤖",
+      "questionsFile": "ml-questions.json"
+    },
+    {
+      "id": "azure",
+      "title": "Azure Administrator",
+      "description": "Préparation à la certification Microsoft Azure Administrator",
+      "icon": "⚡",
+      "questionsFile": "azure-questions.json"
+    }
+  ]
+}

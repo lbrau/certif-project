@@ -1,0 +1,41 @@
+{
+  "title": "Node.js Certification Practice",
+  "categories": [
+    "Core Concepts",
+    "Modules",
+    "Events",
+    "Streams",
+    "Error Handling",
+    "Security",
+    "Performance",
+    "Testing"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "category": "Core Concepts",
+      "question": "Quel est le modèle d'exécution principal de Node.js ?",
+      "options": [
+        "Multi-thread avec pool de threads",
+        "Single-thread avec event loop",
+        "Multi-process avec fork",
+        "Synchrone uniquement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Node.js utilise un modèle single-thread avec une boucle d'événements pour gérer la concurrence de manière non bloquante."
+    },
+    {
+      "id": 2,
+      "category": "Modules",
+      "question": "Quelle est la différence entre require() et import ?",
+      "options": [
+        "Aucune différence, ce sont des synonymes",
+        "require() est synchrone, import est asynchrone",
+        "require() est CommonJS, import est ES modules",
+        "require() est plus récent qu'import"
+      ],
+      "correctAnswer": 2,
+      "explanation": "require() fait partie du système de modules CommonJS traditionnel de Node.js, tandis qu'import fait partie du système de modules ES6+ plus récent."
+    }
+  ]
+}

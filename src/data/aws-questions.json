@@ -1,0 +1,41 @@
+{
+  "title": "AWS Solutions Architect Practice",
+  "categories": [
+    "EC2",
+    "S3",
+    "RDS",
+    "Lambda",
+    "VPC",
+    "IAM",
+    "CloudFormation",
+    "Route53"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "category": "EC2",
+      "question": "Quelle est la meilleure option pour une application qui nécessite une instance avec des performances constantes sur une période d'un an?",
+      "options": [
+        "Instance à la demande",
+        "Instance réservée",
+        "Instance spot",
+        "Instance dédiée"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Les instances réservées sont idéales pour les applications avec une utilisation stable sur une longue période, offrant des réductions significatives par rapport aux instances à la demande."
+    },
+    {
+      "id": 2,
+      "category": "S3",
+      "question": "Quelle classe de stockage S3 est la plus appropriée pour des données rarement accédées mais nécessitant un accès immédiat?",
+      "options": [
+        "S3 Standard",
+        "S3 Intelligent-Tiering",
+        "S3 Standard-IA",
+        "S3 Glacier"
+      ],
+      "correctAnswer": 2,
+      "explanation": "S3 Standard-IA (Infrequent Access) est optimisé pour les données à long terme et rarement accédées qui nécessitent un accès rapide lorsque nécessaire."
+    }
+  ]
+}

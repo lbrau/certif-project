@@ -1,0 +1,41 @@
+{
+  "title": "Machine Learning Certification Practice",
+  "categories": [
+    "Data Engineering",
+    "Exploratory Data Analysis",
+    "Modeling",
+    "ML Ops",
+    "Deep Learning",
+    "Natural Language Processing",
+    "Computer Vision",
+    "SageMaker"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "category": "Data Engineering",
+      "question": "Quelle est la meilleure pratique pour gérer des données déséquilibrées dans un problème de classification ?",
+      "options": [
+        "Ignorer le déséquilibre",
+        "Sous-échantillonnage de la classe majoritaire",
+        "Sur-échantillonnage de la classe minoritaire",
+        "Utiliser SMOTE (Synthetic Minority Over-sampling Technique)"
+      ],
+      "correctAnswer": 3,
+      "explanation": "SMOTE est une technique efficace qui crée des exemples synthétiques de la classe minoritaire, évitant ainsi le surapprentissage potentiel du sur-échantillonnage simple."
+    },
+    {
+      "id": 2,
+      "category": "Deep Learning",
+      "question": "Quelle fonction d'activation est recommandée pour la couche de sortie d'un réseau de neurones dans un problème de classification binaire ?",
+      "options": [
+        "ReLU",
+        "Sigmoid",
+        "Tanh",
+        "Softmax"
+      ],
+      "correctAnswer": 1,
+      "explanation": "La fonction sigmoid est idéale pour la classification binaire car elle produit une sortie entre 0 et 1, qui peut être interprétée comme une probabilité."
+    }
+  ]
+}
