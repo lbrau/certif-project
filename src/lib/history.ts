@@ -1,9 +1,9 @@
-import type { QuizResult } from '@/types/quiz';
+import type { QuizSession } from '@/types/quiz';
 
 const STORAGE_KEY = 'quizHistory';
 
 // Charge l'historique depuis le localStorage
-function loadFromStorage(): QuizResult[] {
+function loadFromStorage(): QuizSession[] {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : [];
@@ -13,7 +13,7 @@ function loadFromStorage(): QuizResult[] {
 }
 
 // Sauvegarde l'historique dans le localStorage
-function saveToStorage(history: QuizResult[]): void {
+function saveToStorage(history: QuizSession[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
   } catch (error) {
@@ -21,9 +21,9 @@ function saveToStorage(history: QuizResult[]): void {
   }
 }
 
-let history: QuizResult[] = loadFromStorage();
+let history: QuizSession[] = loadFromStorage();
 
-export function saveQuizResult(result: QuizResult): void {
+export function saveQuizSession(result: QuizSession): void {
   try {
     // Sauvegarde en local
     history = [result, ...history];
@@ -33,6 +33,6 @@ export function saveQuizResult(result: QuizResult): void {
   }
 }
 
-export function getQuizHistory(): QuizResult[] {
+export function getQuizHistory(): QuizSession[] {
   return history;
 }

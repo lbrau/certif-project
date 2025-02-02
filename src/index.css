@@ -28,8 +28,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  display: block;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -100,14 +99,19 @@ button:focus-visible {
     --radius: 0.5rem;
   }
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 220 30% 20%; /* Bleu marine de base */
+    --card: 220 40% 15%; /* Bleu marine plus foncé pour se démarquer */
+    --card-foreground: 0 0% 98%; /* Texte blanc */
+    --primary: 220 45% 12%; /* Encore plus foncé pour les boutons */
+    --primary-foreground: 0 0% 98%; /* Texte blanc sur les boutons */
+    --border: 220 30% 25%; /* Bordures légèrement plus claires */
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
+
+    --card-hover: 220 40% 18%;
+    --primary-hover: 220 45% 18%;
+
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
@@ -116,7 +120,6 @@ button:focus-visible {
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;

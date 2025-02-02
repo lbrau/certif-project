@@ -1,10 +1,14 @@
+import { Timestamp } from 'firebase/firestore';
+
 export interface QuizResult {
   id: string;
   certificationId: string;
-  date: string;
-  categoryScores: CategoryScores;
+  quizId: string;
+  date?: Date;
+  score?: number;
   overallScore: number;
-  incorrectQuestions: IncorrectQuestion[];
+  incorrectQuestions: string[];
+  timestamp?: Date
 }
 
 export interface CategoryScores {
@@ -23,3 +27,29 @@ export interface IncorrectQuestion {
   selectedAnswer: number;
   explanation: string;
 }
+
+export interface QuizAnswer {
+  questionId: string;
+  selectedAnswer: number;
+  isCorrect: boolean;
+  timestamp: Timestamp;
+}
+
+export interface QuizSession extends QuizResult {
+  sessionId: string;
+  userId: string;
+  startTime: Timestamp;
+  endTime: Timestamp;
+  answers: QuizAnswer[];
+  categoryScores: CategoryScores;
+}
+
+// interface QuizSession {
+//   sessionId: string;
+//   userId: string;
+//   quizId: string;
+//   questions: string[];
+//   currentQuestionIndex: number;
+//   score: number;
+//   timestamp: Timestamp;
+// }

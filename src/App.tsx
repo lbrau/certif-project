@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <ThemeProvider defaultTheme="light" attribute="class">
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background flex justify-center">
         <div className="container mx-auto p-4">
           <div className="flex justify-end gap-2 mb-4">
             <Button

@@ -5,6 +5,12 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Radar } from 'react-chartjs-2';
+import { saveQuizAnswer, saveQuizSession, updateQuestionProgress } from "../lib/firebase.ts";
+import { Timestamp } from 'firebase/firestore';
+import { auth } from '../lib/auth';
+import { saveQuizResult } from "@/lib/firebase";
+import { v4 as uuidv4 } from 'uuid';
+import type {QuizResult, QuizSession} from '@/types/quiz';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -14,9 +20,9 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { 
-  Trophy, 
-  Timer, 
+import {
+  Trophy,
+  Timer,
   AlertCircle,
   ArrowRight,
   RotateCcw,
@@ -24,11 +30,7 @@ import {
   CheckCircle2,
   XCircle
 } from 'lucide-react';
-import { saveQuizResult } from '@/lib/history';
-import { v4 as uuidv4 } from 'uuid';
-import type { QuizResult } from '@/types/quiz';
 
-// Enregistrement des composants Chart.js nécessaires
 ChartJS.register(
   RadialLinearScale,
   PointElement,
@@ -65,14 +67,17 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 export function Quiz({ questions: quizData, onExit }: QuizProps) {
-  const [shuffledQuestions] = useState(() => 
+  const [user] = useState(auth.currentUser);
+  const [shuffledQuestions] = useState(() =>
     shuffleArray(quizData.questions)
   );
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [answers, setAnswers] = useState<(number | null)[]>(
     new Array(quizData.questions.length).fill(null)
   );
+
   const [timeSpent, setTimeSpent] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
 
@@ -86,28 +91,57 @@ export function Quiz({ questions: quizData, onExit }: QuizProps) {
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
   const isAnswered = selectedAnswer !== null;
 
-  const handleAnswerSelect = (index: number) => {
+  const handleAnswerSelect = async (index: number) => {
     if (isAnswered) return;
+    if (!user) return;
+
     setSelectedAnswer(index);
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = index;
     setAnswers(newAnswers);
+    const isCorrect = index === currentQuestion.correctAnswer;
+
+    try {
+      await Promise.all([
+        updateQuestionProgress(
+            user.uid,
+            String(currentQuestion.id),
+            isCorrect
+        ),
+        saveQuizAnswer(user.uid, {
+          questionId: currentQuestion.id.toString(),
+          selectedAnswer: index,
+          isCorrect,
+          timestamp: Timestamp.now()
+        })
+      ]);
+    } catch (error) {
+      console.error("error during saving :", error);
+    }
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
+    if (selectedAnswer === null) return;
+
+    // Vérifie si la réponse est correcte
+    const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
+
+    // 🔥 Mise à jour de la question dans Firebase
+    updateQuestionProgress(user?.uid || "user123", currentQuestion.id.toString(), isCorrect);
+
     if (currentQuestionIndex < shuffledQuestions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
     } else {
-      setQuizCompleted(true);
       const result = createQuizResult();
-      saveQuizResult(result);
+      await saveQuizResult(user?.uid || "user123", result);
+      setQuizCompleted(true);
     }
   };
 
   const calculateCategoryScores = () => {
     const scores: Record<string, { correct: number; total: number }> = {};
-    
+
     quizData.categories.forEach(category => {
       scores[category] = { correct: 0, total: 0 };
     });
@@ -202,12 +236,63 @@ export function Quiz({ questions: quizData, onExit }: QuizProps) {
   const createQuizResult = (): QuizResult => {
     return {
       id: uuidv4(),
+      quizId: uuidv4(),
       certificationId: quizData.title,
-      date: new Date().toISOString(),
-      categoryScores: calculateCategoryScores(),
       overallScore: getOverallScore(),
-      incorrectQuestions: getIncorrectQuestions(),
+      incorrectQuestions: getIncorrectQuestions().map(q => q.id.toString()),
+      date: new Date()
     };
+  };
+
+//   const handleQuizSubmit = async (userId: string, quizId: string, score: number, incorrectQuestions: string[]) => {
+//     try {
+//         const result: QuizResult = {
+//           id: uuidv4(),
+//           quizId: quizId,
+//           certificationId: "certificationId",
+//           overallScore: score,
+//           incorrectQuestions: getIncorrectQuestions().map(q => q.id.toString()),
+//           date: new Date(),
+//           timestamp: Timestamp.now().toDate()
+//         };
+//
+//         await saveQuizResult(userId, result);
+//         for (const questionId of incorrectQuestions) {
+//             await updateQuestionProgress(userId, questionId, false);
+//         }
+//
+//         console.log("Quiz results and question progress updated successfully!");
+//     } catch (error) {
+//         console.error("Error handling quiz submission:", error);
+//     }
+// };
+
+  const handleQuizComplete = async () => {
+    console.log("handleQuizComplete called"); // Ajoutez un log pour le débogage
+    if (!user || quizCompleted) return;
+
+    const sessionData: QuizSession = {
+      id: uuidv4(),
+      certificationId: quizData.title,
+      overallScore: getOverallScore(),
+      incorrectQuestions: getIncorrectQuestions().map(q => q.id.toString()),
+      sessionId: uuidv4(),
+      userId: user.uid,
+      quizId: quizData.title,
+      startTime: Timestamp.fromDate(new Date(Date.now() - timeSpent * 1000)),
+      endTime: Timestamp.now(),
+      answers: shuffledQuestions.map((q, i) => ({
+        questionId: q.id.toString(),
+        selectedAnswer: answers[i] || -1,
+        isCorrect: answers[i] === q.correctAnswer,
+        timestamp: Timestamp.now()
+      })),
+      score: getOverallScore(),
+      categoryScores: calculateCategoryScores()
+    };
+
+    await saveQuizSession(sessionData);
+    setQuizCompleted(true);
   };
 
   if (quizCompleted) {
@@ -216,6 +301,11 @@ export function Quiz({ questions: quizData, onExit }: QuizProps) {
     const minutes = Math.floor(timeSpent / 60);
     const seconds = timeSpent % 60;
     const categoryScores = calculateCategoryScores();
+
+    if (!quizCompleted) {
+      //handleQuizSubmit(user?.uid || "user123", quizData.title, overallScore, incorrectQuestions.map(q => q.id.toString()));
+      handleQuizComplete();
+    }
 
     return (
       <motion.div
@@ -349,8 +439,8 @@ export function Quiz({ questions: quizData, onExit }: QuizProps) {
         </div>
       </div>
 
-      <Progress 
-        value={(currentQuestionIndex / shuffledQuestions.length) * 100} 
+      <Progress
+        value={(currentQuestionIndex / shuffledQuestions.length) * 100}
         className="h-2"
       />
 
@@ -426,9 +516,9 @@ export function Quiz({ questions: quizData, onExit }: QuizProps) {
                   </p>
                 </CardContent>
               </Card>
-              
-              <Button 
-                onClick={handleNextQuestion} 
+
+              <Button
+                onClick={handleNextQuestion}
                 className="w-full gap-2"
                 size="lg"
               >

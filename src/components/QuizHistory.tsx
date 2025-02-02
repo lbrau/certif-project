@@ -15,7 +15,7 @@ import {
   Legend
 } from 'chart.js';
 import { TrendingUp, TrendingDown } from 'lucide-react';
-import type { QuizResult } from '@/types/quiz';
+import type {QuizSession} from '@/types/quiz';
 import { getQuizHistory } from '@/lib/history';
 
 // Enregistrement des composants Chart.js nécessaires
@@ -33,13 +33,13 @@ interface QuizHistoryProps {
 }
 
 export function QuizHistory({ onClose }: QuizHistoryProps) {
-  const [quizHistory, setQuizHistory] = useState<QuizResult[]>([]);
+  const [quizHistory, setQuizHistory] = useState<QuizSession[]>([]);
 
   useEffect(() => {
     setQuizHistory(getQuizHistory());
   }, []);
 
-  const analyzePerformance = (scores: QuizResult['categoryScores']) => {
+  const analyzePerformance = (scores: QuizSession['categoryScores']) => {
     const strongServices = [];
     const weakServices = [];
 
@@ -55,7 +55,7 @@ export function QuizHistory({ onClose }: QuizHistoryProps) {
     return { strongServices, weakServices };
   };
 
-  const getRadarData = (categoryScores: QuizResult['categoryScores']) => {
+  const getRadarData = (categoryScores: QuizSession['categoryScores']) => {
     return {
       labels: Object.keys(categoryScores),
       datasets: [
@@ -124,21 +124,26 @@ export function QuizHistory({ onClose }: QuizHistoryProps) {
             <ScrollArea className="h-[calc(100vh-12rem)]">
               <div className="space-y-6">
                 {quizHistory.map((quiz) => {
+
+                  const formattedDate = quiz.date ?
+                      format(quiz.date instanceof Date ? quiz.date : new Date(quiz.date), "d MMMM yyyy 'à' HH:mm", { locale: fr })
+                      : 'Date inconnue';
+
                   const { strongServices, weakServices } = analyzePerformance(quiz.categoryScores);
-                  
+
                   return (
                     <Card key={quiz.id} className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
                       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div className="space-y-4">
                           <div>
                             <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-                              Quiz du {format(new Date(quiz.date), "d MMMM yyyy 'à' HH:mm", { locale: fr })}
+                              Quiz du {formattedDate}
                             </h3>
                             <p className="text-lg font-medium text-slate-600 dark:text-slate-300">
                               Score global: {quiz.overallScore.toFixed(1)}%
                             </p>
                           </div>
-                          
+
                           <div className="space-y-2">
                             <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
                               <TrendingUp className="h-5 w-5" />
@@ -155,7 +160,7 @@ export function QuizHistory({ onClose }: QuizHistoryProps) {
                               )}
                             </ul>
                           </div>
-                          
+
                           <div className="space-y-2">
                             <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
                               <TrendingDown className="h-5 w-5" />

@@ -36,6 +36,110 @@
       ],
       "correctAnswer": 2,
       "explanation": "S3 Standard-IA (Infrequent Access) est optimisé pour les données à long terme et rarement accédées qui nécessitent un accès rapide lorsque nécessaire."
+    },
+    {
+      "id": 3,
+      "category": "RDS",
+      "question": "Quelle option de base de données AWS est la plus adaptée pour une application nécessitant une base de données relationnelle avec une haute disponibilité intégrée?",
+      "options": [
+        "DynamoDB",
+        "RDS avec Multi-AZ",
+        "Redshift",
+        "Aurora Serverless"
+      ],
+      "correctAnswer": 1,
+      "explanation": "RDS avec Multi-AZ offre une haute disponibilité en répliquant automatiquement les données dans une autre zone de disponibilité."
+    },
+    {
+      "id": 4,
+      "category": "Lambda",
+      "question": "Quel service AWS peut être utilisé pour déclencher une fonction Lambda en réponse à des événements provenant d'un bucket S3?",
+      "options": [
+        "CloudWatch Events",
+        "S3 Event Notifications",
+        "SNS",
+        "SQS"
+      ],
+      "correctAnswer": 1,
+      "explanation": "S3 Event Notifications peut être configuré pour déclencher une fonction Lambda en réponse à des événements tels que la création ou la suppression d'objets dans un bucket S3."
+    },
+    {
+      "id": 5,
+      "category": "VPC",
+      "question": "Quel composant VPC permet à une instance EC2 dans un sous-réseau privé d'accéder à Internet tout en restant privée?",
+      "options": [
+        "Internet Gateway",
+        "NAT Gateway",
+        "VPN Gateway",
+        "Direct Connect"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Un NAT Gateway permet aux instances EC2 dans un sous-réseau privé d'accéder à Internet tout en empêchant l'accès direct depuis Internet."
+    },
+    {
+      "id": 6,
+      "category": "IAM",
+      "question": "Quelle politique IAM permet à un utilisateur de gérer uniquement ses propres informations de sécurité?",
+      "options": [
+        "IAMFullAccess",
+        "IAMReadOnlyAccess",
+        "IAMUserChangePassword",
+        "IAMUserSSHKeys"
+      ],
+      "correctAnswer": 2,
+      "explanation": "La politique IAMUserChangePassword permet à un utilisateur de modifier son propre mot de passe sans accorder d'autres permissions."
+    },
+    {
+      "id": 7,
+      "category": "CloudFormation",
+      "question": "Quel est le principal avantage d'utiliser AWS CloudFormation pour déployer des infrastructures?",
+      "options": [
+        "Automatisation des déploiements",
+        "Surveillance des performances",
+        "Gestion des coûts",
+        "Sécurité renforcée"
+      ],
+      "correctAnswer": 0,
+      "explanation": "CloudFormation permet d'automatiser le déploiement et la gestion des infrastructures AWS en utilisant des templates JSON ou YAML."
+    },
+    {
+      "id": 8,
+      "category": "Route53",
+      "question": "Quel type d'enregistrement Route53 est utilisé pour rediriger un domaine vers un autre domaine?",
+      "options": [
+        "A",
+        "CNAME",
+        "ALIAS",
+        "PTR"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Un enregistrement CNAME est utilisé pour rediriger un domaine vers un autre domaine, par exemple, www.example.com vers example.com."
+    },
+    {
+      "id": 9,
+      "category": "EC2",
+      "question": "Quel type d'instance EC2 est optimisé pour les charges de travail de calcul intensif?",
+      "options": [
+        "T3",
+        "C5",
+        "R5",
+        "M5"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Les instances de la famille C5 sont optimisées pour les charges de travail de calcul intensif, offrant un rapport performance/prix élevé."
+    },
+    {
+      "id": 10,
+      "category": "S3",
+      "question": "Quelle fonctionnalité S3 permet de répliquer automatiquement les objets entre deux buckets dans différentes régions?",
+      "options": [
+        "S3 Cross-Region Replication",
+        "S3 Transfer Acceleration",
+        "S3 Lifecycle Policies",
+        "S3 Versioning"
+      ],
+      "correctAnswer": 0,
+      "explanation": "S3 Cross-Region Replication permet de répliquer automatiquement les objets entre deux buckets dans différentes régions pour la redondance et la latence réduite."
     }
   ]
 }
