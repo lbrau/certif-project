@@ -1,83 +1,9 @@
 {
-  "title": "AWS Solutions Architect Practice",
-  "categories": [
-    "EC2",
-    "S3",
-    "RDS",
-    "Lambda",
-    "VPC",
-    "IAM",
-    "CloudFormation",
-    "Route53"
-  ],
+  "title": "AWS Solutions Architect Practice - IAM",
+  "category": "IAM",
   "questions": [
     {
-      "id": 1,
-      "category": "EC2",
-      "question": "Quelle est la meilleure option pour une application qui nécessite une instance avec des performances constantes sur une période d'un an?",
-      "options": [
-        "Instance à la demande",
-        "Instance réservée",
-        "Instance spot",
-        "Instance dédiée"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Les instances réservées sont idéales pour les applications avec une utilisation stable sur une longue période, offrant des réductions significatives par rapport aux instances à la demande."
-    },
-    {
-      "id": 2,
-      "category": "S3",
-      "question": "Quelle classe de stockage S3 est la plus appropriée pour des données rarement accédées mais nécessitant un accès immédiat?",
-      "options": [
-        "S3 Standard",
-        "S3 Intelligent-Tiering",
-        "S3 Standard-IA",
-        "S3 Glacier"
-      ],
-      "correctAnswer": 2,
-      "explanation": "S3 Standard-IA (Infrequent Access) est optimisé pour les données à long terme et rarement accédées qui nécessitent un accès rapide lorsque nécessaire."
-    },
-    {
-      "id": 3,
-      "category": "RDS",
-      "question": "Quelle option de base de données AWS est la plus adaptée pour une application nécessitant une base de données relationnelle avec une haute disponibilité intégrée?",
-      "options": [
-        "DynamoDB",
-        "RDS avec Multi-AZ",
-        "Redshift",
-        "Aurora Serverless"
-      ],
-      "correctAnswer": 1,
-      "explanation": "RDS avec Multi-AZ offre une haute disponibilité en répliquant automatiquement les données dans une autre zone de disponibilité."
-    },
-    {
-      "id": 4,
-      "category": "Lambda",
-      "question": "Quel service AWS peut être utilisé pour déclencher une fonction Lambda en réponse à des événements provenant d'un bucket S3?",
-      "options": [
-        "CloudWatch Events",
-        "S3 Event Notifications",
-        "SNS",
-        "SQS"
-      ],
-      "correctAnswer": 1,
-      "explanation": "S3 Event Notifications peut être configuré pour déclencher une fonction Lambda en réponse à des événements tels que la création ou la suppression d'objets dans un bucket S3."
-    },
-    {
-      "id": 5,
-      "category": "VPC",
-      "question": "Quel composant VPC permet à une instance EC2 dans un sous-réseau privé d'accéder à Internet tout en restant privée?",
-      "options": [
-        "Internet Gateway",
-        "NAT Gateway",
-        "VPN Gateway",
-        "Direct Connect"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Un NAT Gateway permet aux instances EC2 dans un sous-réseau privé d'accéder à Internet tout en empêchant l'accès direct depuis Internet."
-    },
-    {
-      "id": 6,
+      "id": 11,
       "category": "IAM",
       "question": "Quelle politique IAM permet à un utilisateur de gérer uniquement ses propres informations de sécurité?",
       "options": [
@@ -90,56 +16,186 @@
       "explanation": "La politique IAMUserChangePassword permet à un utilisateur de modifier son propre mot de passe sans accorder d'autres permissions."
     },
     {
-      "id": 7,
-      "category": "CloudFormation",
-      "question": "Quel est le principal avantage d'utiliser AWS CloudFormation pour déployer des infrastructures?",
+      "id": 12,
+      "category": "IAM",
+      "question": "Quelle est la meilleure pratique pour accorder des permissions aux utilisateurs AWS?",
       "options": [
-        "Automatisation des déploiements",
-        "Surveillance des performances",
-        "Gestion des coûts",
-        "Sécurité renforcée"
-      ],
-      "correctAnswer": 0,
-      "explanation": "CloudFormation permet d'automatiser le déploiement et la gestion des infrastructures AWS en utilisant des templates JSON ou YAML."
-    },
-    {
-      "id": 8,
-      "category": "Route53",
-      "question": "Quel type d'enregistrement Route53 est utilisé pour rediriger un domaine vers un autre domaine?",
-      "options": [
-        "A",
-        "CNAME",
-        "ALIAS",
-        "PTR"
+        "Attribuer des permissions directement aux utilisateurs",
+        "Utiliser des groupes IAM",
+        "Créer un utilisateur root avec un accès complet",
+        "Ajouter toutes les permissions possibles à chaque utilisateur"
       ],
       "correctAnswer": 1,
-      "explanation": "Un enregistrement CNAME est utilisé pour rediriger un domaine vers un autre domaine, par exemple, www.example.com vers example.com."
+      "explanation": "Il est recommandé d'utiliser les groupes IAM pour gérer les permissions de manière centralisée et éviter les permissions excessives."
     },
     {
-      "id": 9,
-      "category": "EC2",
-      "question": "Quel type d'instance EC2 est optimisé pour les charges de travail de calcul intensif?",
+      "id": 13,
+      "category": "IAM",
+      "question": "Que permet une IAM Policy Condition?",
       "options": [
-        "T3",
-        "C5",
-        "R5",
-        "M5"
+        "Restreindre l'accès en fonction de l'heure",
+        "Restreindre l'accès en fonction d'une adresse IP",
+        "Restreindre l'accès en fonction d'un tag AWS",
+        "Toutes les réponses ci-dessus"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Les conditions IAM permettent de restreindre les permissions selon divers critères comme l'heure, l'adresse IP ou les tags."
+    },
+    {
+      "id": 14,
+      "category": "IAM",
+      "question": "Quel est l'objectif principal d'un rôle IAM?",
+      "options": [
+        "Permettre à un utilisateur de stocker ses clés d'accès",
+        "Attribuer des permissions temporaires à une entité AWS",
+        "Créer un accès administrateur pour un utilisateur IAM",
+        "Fournir un accès root à plusieurs utilisateurs"
       ],
       "correctAnswer": 1,
-      "explanation": "Les instances de la famille C5 sont optimisées pour les charges de travail de calcul intensif, offrant un rapport performance/prix élevé."
+      "explanation": "Les rôles IAM permettent d'attribuer des permissions temporaires aux services AWS sans utiliser de clés d'accès statiques."
     },
     {
-      "id": 10,
-      "category": "S3",
-      "question": "Quelle fonctionnalité S3 permet de répliquer automatiquement les objets entre deux buckets dans différentes régions?",
+      "id": 15,
+      "category": "IAM",
+      "question": "Quelle stratégie de sécurité IAM est recommandée pour minimiser l'accès non autorisé?",
       "options": [
-        "S3 Cross-Region Replication",
-        "S3 Transfer Acceleration",
-        "S3 Lifecycle Policies",
-        "S3 Versioning"
+        "Appliquer le principe du moindre privilège",
+        "Donner l'accès administrateur à tous les utilisateurs",
+        "Utiliser uniquement l'utilisateur root",
+        "Créer plusieurs comptes IAM pour le même utilisateur"
       ],
       "correctAnswer": 0,
-      "explanation": "S3 Cross-Region Replication permet de répliquer automatiquement les objets entre deux buckets dans différentes régions pour la redondance et la latence réduite."
+      "explanation": "Le principe du moindre privilège garantit que chaque entité dispose uniquement des permissions strictement nécessaires à son travail."
+    },
+    {
+      "id": 16,
+      "category": "IAM",
+      "question": "Quelle est la meilleure façon de protéger l'accès à un utilisateur IAM?",
+      "options": [
+        "Activer l'authentification multi-facteurs (MFA)",
+        "Partager les clés d'accès avec l'équipe",
+        "Utiliser le même mot de passe pour tous les comptes AWS",
+        "Créer plusieurs comptes root pour chaque utilisateur"
+      ],
+      "correctAnswer": 0,
+      "explanation": "L'authentification multi-facteurs (MFA) ajoute une couche de sécurité supplémentaire contre l'accès non autorisé."
+    },
+    {
+      "id": 17,
+      "category": "IAM",
+      "question": "Quel est l’avantage principal d’un groupe IAM par rapport aux permissions attribuées directement aux utilisateurs?",
+      "options": [
+        "Les groupes permettent une gestion centralisée des permissions",
+        "Les groupes ont des permissions plus élevées que les utilisateurs",
+        "Les groupes peuvent stocker des clés d'accès",
+        "Les groupes sont nécessaires pour activer MFA"
+      ],
+      "correctAnswer": 0,
+      "explanation": "L'utilisation des groupes IAM permet de centraliser la gestion des permissions et d'appliquer des règles de sécurité de manière homogène."
+    },
+    {
+      "id": 18,
+      "category": "IAM",
+      "question": "Quelle est la fonction principale d’une boundary policy IAM?",
+      "options": [
+        "Restreindre les permissions maximales qu'un utilisateur peut obtenir",
+        "Donner des permissions supplémentaires aux utilisateurs IAM",
+        "Créer des comptes IAM root",
+        "Désactiver l'authentification multi-facteurs"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Une permissions boundary définit les permissions maximales qu'un utilisateur ou un rôle peut obtenir, même s'il possède d'autres politiques plus permissives."
+    },
+    {
+      "id": 19,
+      "category": "IAM",
+      "question": "Quelle est la différence principale entre un IAM User et un IAM Role?",
+      "options": [
+        "Les utilisateurs possèdent des credentials permanents alors que les rôles ont des permissions temporaires",
+        "Les rôles IAM peuvent stocker des clés d'accès",
+        "Les utilisateurs IAM sont réservés aux services AWS",
+        "Les rôles ne peuvent pas être attachés à des services AWS"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Les utilisateurs IAM disposent de credentials permanents, tandis que les rôles IAM sont conçus pour fournir des permissions temporaires à des entités AWS."
+    },
+    {
+      "id": 20,
+      "category": "IAM",
+      "question": "Comment un service AWS peut-il assumer un rôle IAM pour obtenir des permissions?",
+      "options": [
+        "En créant un utilisateur IAM avec des clés d'accès",
+        "En attachant un rôle IAM au service",
+        "En ajoutant le service au groupe Administrators",
+        "En utilisant la console AWS uniquement"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Les rôles IAM permettent aux services AWS d'obtenir des permissions sans nécessiter de clés d'accès statiques, renforçant ainsi la sécurité."
+    },
+    {
+      "id": 21,
+      "category": "IAM",
+      "question": "Que permet l’option IAM Access Analyzer?",
+      "options": [
+        "Analyser les politiques IAM pour détecter les accès non intentionnels",
+        "Créer automatiquement des utilisateurs IAM",
+        "Générer des clés d’accès root",
+        "Supprimer les permissions IAM non utilisées"
+      ],
+      "correctAnswer": 0,
+      "explanation": "IAM Access Analyzer analyse les politiques IAM et identifie les accès non intentionnels pour renforcer la sécurité."
+    },
+    {
+      "id": 22,
+      "category": "IAM",
+      "question": "Quel type de politique IAM est automatiquement appliqué à tous les comptes AWS?",
+      "options": [
+        "AWS Managed Policies",
+        "Service Control Policies (SCP)",
+        "Inline Policies",
+        "Group Policies"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Les SCP sont utilisées dans AWS Organizations pour appliquer des restrictions globales sur tous les comptes AWS."
+    },
+    {
+      "id": 23,
+      "category": "IAM",
+      "question": "Que signifie une politique IAM avec un effet 'Deny' explicite?",
+      "options": [
+        "Elle est prioritaire sur toutes les autres autorisations",
+        "Elle peut être contournée par une Managed Policy",
+        "Elle est appliquée uniquement aux utilisateurs root",
+        "Elle empêche uniquement l’accès aux ressources S3"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Un 'Deny' explicite a toujours priorité sur les autorisations 'Allow', empêchant ainsi tout accès, même si une autre politique accorde la permission."
+    },
+    {
+      "id": 24,
+      "category": "IAM",
+      "question": "Quels sont les types d'entités qui peuvent assumer un rôle IAM?",
+      "options": [
+        "Utilisateurs IAM",
+        "Services AWS",
+        "Comptes AWS externes",
+        "Toutes les réponses ci-dessus"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Les rôles IAM peuvent être assumés par des utilisateurs IAM, des services AWS et même des comptes AWS externes via le Trust Policy."
+    },
+    {
+      "id": 25,
+      "category": "IAM",
+      "question": "Quelle est la meilleure façon de suivre l'utilisation des permissions IAM?",
+      "options": [
+        "Activer AWS CloudTrail",
+        "Créer un utilisateur IAM administrateur",
+        "Désactiver les permissions IAM inutilisées",
+        "Utiliser des clés d'accès root"
+      ],
+      "correctAnswer": 0,
+      "explanation": "AWS CloudTrail permet de suivre toutes les activités IAM et de surveiller l'utilisation des permissions dans AWS."
     }
   ]
 }
